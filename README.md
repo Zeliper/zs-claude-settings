@@ -20,28 +20,16 @@ Claude Code 확장 기능(Skills, Agents, MCP, Workflows, CLAUDE.md) 설정 가�
 
 ## 사용 방법
 
-### 1. 저장소를 프로젝트에 추가
-
-```bash
-# 서브모듈로 추가 (권장)
-git submodule add https://github.com/YOUR_USERNAME/zs-claude-settings.git .claude-settings
-
-# 또는 직접 복사
-git clone https://github.com/YOUR_USERNAME/zs-claude-settings.git .claude-settings
-```
-
-### 2. Claude Code에서 설정 생성 요청
-
-Plan 모드를 사용하여 Claude Code에게 설정 생성을 요청합니다:
+Claude Code에게 이 저장소의 `Data/README.md`를 읽고 설정을 생성하도록 요청합니다:
 
 ```
-.claude-settings/Data 폴더의 문서를 참조해서 [원하는 설정 유형]을 만들어줘
+https://github.com/Zeliper/zs-claude-settings 의 Data/README.md를 읽고 [원하는 설정 유형]을 만들어줘
 ```
 
 **예시 프롬프트:**
-- "`.claude-settings/Data`를 참고해서 로그 분석 MCP 서버를 만들어줘"
-- "`.claude-settings/Data`를 참고해서 코드 리뷰 Agent를 만들어줘"
-- "`.claude-settings/Data`를 참고해서 이 프로젝트의 CLAUDE.md를 만들어줘"
+- "https://github.com/Zeliper/zs-claude-settings 의 Data/README.md를 읽고 로그 분석 MCP 서버를 만들어줘"
+- "https://github.com/Zeliper/zs-claude-settings 의 Data/README.md를 읽고 코드 리뷰 Agent를 만들어줘"
+- "https://github.com/Zeliper/zs-claude-settings 의 Data/README.md를 읽고 이 프로젝트의 CLAUDE.md를 만들어줘"
 
 ---
 
@@ -53,10 +41,21 @@ Plan 모드를 사용하여 Claude Code에게 설정 생성을 요청합니다:
 
 사용자가 이 저장소의 문서를 참조하여 설정 생성을 요청하면 다음 단계를 따르세요:
 
-1. **문서 읽기**: `Data/` 폴더의 관련 문서를 읽어 설정 유형에 대한 이해를 높입니다
-2. **Plan 모드 진입**: 설정 생성 계획을 수립합니다
-3. **필수 입력값 수집**: 사용자에게 설정에 필요한 정보를 질문합니다
-4. **설정 생성**: 수집한 정보를 바탕으로 설정 파일을 생성합니다
+1. **Data/README.md 읽기**: 먼저 `https://raw.githubusercontent.com/Zeliper/zs-claude-settings/main/Data/README.md`를 읽어 전체 가이드를 파악합니다
+2. **관련 문서 읽기**: 요청된 설정 유형에 맞는 세부 문서를 GitHub에서 읽습니다
+3. **Plan 모드 진입**: 설정 생성 계획을 수립합니다
+4. **필수 입력값 수집**: 사용자에게 설정에 필요한 정보를 질문합니다
+5. **설정 생성**: 수집한 정보를 바탕으로 설정 파일을 생성합니다
+
+### GitHub 문서 URL 형식
+
+```
+https://raw.githubusercontent.com/Zeliper/zs-claude-settings/main/Data/[폴더]/[파일명]
+```
+
+**예시:**
+- Skills 개요: `https://raw.githubusercontent.com/Zeliper/zs-claude-settings/main/Data/01-skills/01-overview.md`
+- MCP 생성: `https://raw.githubusercontent.com/Zeliper/zs-claude-settings/main/Data/03-mcp/02-creating-servers.md`
 
 ### 설정 유형별 필수 질문
 
