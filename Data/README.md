@@ -2,31 +2,70 @@
 
 This folder contains comprehensive documentation for Claude Code's extensibility features. Claude Code should read these documents when helping users create or merge configurations into their projects.
 
+> **⚠️ CRITICAL: All configuration creation MUST be executed in Plan Mode. Never create files without user approval.**
+
 ## Purpose
 
-When a user requests to create Skills, Agents, MCP servers, Workflows, or CLAUDE.md files, Claude Code should:
+When a user requests to create Skills, Agents, MCP servers, Workflows, or CLAUDE.md files, Claude Code **MUST**:
 
 1. **Read** the relevant documentation from this folder
-2. **Enter Plan mode** to design the configuration
-3. **Gather required inputs** from the user through questions
-4. **Generate** the configuration based on user responses
+2. **🔴 Enter Plan Mode** (call `EnterPlanMode`) - THIS IS MANDATORY
+3. **Analyze** the current project structure and tech stack
+4. **Gather required inputs** from the user through questions (`AskUserQuestion`)
+5. **Present plan** for user approval
+6. **Generate** the configuration only after approval
 
 ---
 
 ## Plan Mode Integration Workflow
 
 ```
-User Request → Read Documentation → Enter Plan Mode → Ask Questions → Generate Config
+User Request → Read Docs → 🔴 ENTER PLAN MODE → Analyze Project → Ask Questions → Confirm Plan → Generate Config
 ```
 
-### Step-by-Step Process
+### Standard Workflow (Individual Configuration)
 
 1. **Identify Configuration Type**: Determine which type the user wants (Skills, Agents, MCP, etc.)
-2. **Read Relevant Docs**: Navigate to the appropriate subfolder and read the documentation
-3. **Enter Plan Mode**: Design the implementation approach
-4. **Gather User Inputs**: Ask the required questions listed below for each type
-5. **Confirm Plan**: Present the plan to the user for approval
-6. **Generate Configuration**: Create the files based on collected information
+2. **Read Relevant Docs**: Fetch documentation from this folder via raw.githubusercontent.com URLs
+3. **🔴 Enter Plan Mode**: Call `EnterPlanMode` - DO NOT SKIP THIS STEP
+4. **Analyze Project**: Examine project structure, dependencies, existing configurations
+5. **Gather User Inputs**: Use `AskUserQuestion` to collect required information
+6. **Write Plan**: Document the configuration plan in the plan file
+7. **Get Approval**: Wait for user to approve the plan
+8. **Generate Configuration**: Create files only after approval
+
+### Comprehensive Project Analysis Workflow
+
+When user requests full project analysis and configuration (e.g., "analyze my project and create all necessary configurations"):
+
+1. **Read All Overview Documents**:
+   - `Data/README.md` (this file)
+   - `Data/01-skills/01-overview.md`
+   - `Data/02-agents/01-overview.md`
+   - `Data/03-mcp/01-overview.md`
+   - `Data/05-claude-md/01-overview.md`
+
+2. **🔴 Enter Plan Mode** (MANDATORY)
+
+3. **Deep Project Analysis**:
+   - Scan project structure and file tree
+   - Analyze dependency files (package.json, requirements.txt, etc.)
+   - Check for existing `.claude/` folder and `CLAUDE.md`
+   - Identify main technologies and frameworks
+   - Understand code patterns and architecture
+
+4. **Ask User Questions for Each Configuration Type**:
+   - What Skills would benefit this project?
+   - What specialized Agents are needed?
+   - What external systems should be connected via MCP?
+   - What should be documented in CLAUDE.md?
+   - Where should Workflow.md be created and what should it contain?
+
+5. **Create Comprehensive Plan**: Document all configurations in the plan file
+
+6. **Get User Approval**
+
+7. **Generate All Configurations**: Create files in the correct locations
 
 ---
 
@@ -190,17 +229,39 @@ for this project that covers [ASPECTS].
 
 ## Critical Principles for Claude Code
 
-1. **Always Ask First**: Never assume values for required inputs. Ask the user explicitly.
+> **These are MANDATORY rules that Claude Code MUST follow.**
 
-2. **Read Before Creating**: Always read the relevant documentation before generating configurations.
+1. **🔴 Always Use Plan Mode**: Every configuration creation request MUST go through Plan Mode. Call `EnterPlanMode` before any analysis or file creation.
 
-3. **Confirm Plans**: Present the configuration plan to the user before creating files.
+2. **Always Ask First**: Never assume values for required inputs. Use `AskUserQuestion` to ask the user explicitly.
 
-4. **Start Simple**: Create minimal viable configurations first, then iterate.
+3. **Read Before Creating**: Always read the relevant documentation from this repository before generating configurations.
 
-5. **Follow Best Practices**: Apply the best practices documented in each section.
+4. **Confirm Plans**: Present the complete configuration plan to the user and get approval before creating any files.
 
-6. **Respect Project Structure**: Place files in appropriate locations based on project-level vs user-level scope.
+5. **Start Simple**: Create minimal viable configurations first, then iterate based on user feedback.
+
+6. **Follow Best Practices**: Apply the best practices documented in each section.
+
+7. **Respect Project Structure**: Place files in appropriate locations based on project-level vs user-level scope.
+
+---
+
+## GitHub Document URLs
+
+When reading documentation from this repository, use the raw.githubusercontent.com format:
+
+```
+https://raw.githubusercontent.com/Zeliper/zs-claude-settings/main/Data/[FOLDER]/[FILENAME]
+```
+
+**Examples:**
+- This file: `https://raw.githubusercontent.com/Zeliper/zs-claude-settings/main/Data/README.md`
+- Skills overview: `https://raw.githubusercontent.com/Zeliper/zs-claude-settings/main/Data/01-skills/01-overview.md`
+- Agents overview: `https://raw.githubusercontent.com/Zeliper/zs-claude-settings/main/Data/02-agents/01-overview.md`
+- MCP overview: `https://raw.githubusercontent.com/Zeliper/zs-claude-settings/main/Data/03-mcp/01-overview.md`
+- MCP creation: `https://raw.githubusercontent.com/Zeliper/zs-claude-settings/main/Data/03-mcp/02-creating-servers.md`
+- CLAUDE.md overview: `https://raw.githubusercontent.com/Zeliper/zs-claude-settings/main/Data/05-claude-md/01-overview.md`
 
 ---
 
